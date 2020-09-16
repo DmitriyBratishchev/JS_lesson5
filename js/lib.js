@@ -1,4 +1,4 @@
-
+// 'use strict'
 
 (function () {
   function numTrue() {
@@ -9,47 +9,39 @@
     let max = getNumMax(textForUser, maxNumDefault);
     let numTrue = Math.floor(Math.random() * (max + 1));
     console.log("загаданное число: " + numTrue);
-    
-      return numTrue;
-   
+
+    return numTrue;
   }
-  // let i = makeCounter();
-  // console.log(i());
 
-  function start() {
-    
-    let j = 0 ;
-    return function () {
-      let n = numTrue();
-      let i = makeCounter()
-      while (j < 10) {
-        j = i();
-        console.log(j);
-        // console.log(i());
+  window.start = function start() {
+    let j = 0;
+    let n = numTrue();
+    let i = makeCounter();
 
-        let numForUser = getNum_or_null("Попытка номер " + j + ". Введите число:", "");
-        if (numForUser === null) {
-          alert("Было загаданно : " + n + ".");
-          // i = makeCounter();
-          break;
-        } else if (n > +numForUser) {
-          // i = makeCounter();
-          alert("Больше!");
-        } else if (n < +numForUser) {
-          // i = makeCounter();
-          alert("Меньше!");
-        } else if (n === +numForUser) {
-          i = makeCounter();
-          alert("Правильно!!!");
-          break;
-        }
-        
+    while (j < 10) {
+      j = i();
+      console.log(j);
+
+      let numForUser = getNum_or_null(
+        "Попытка номер " + j + ". Введите число:", ""
+        );
+      if (numForUser === null) {
+        alert("Было загаданно : " + n + ".");
+        break;
+      } else if (n > +numForUser) {
+        alert("Больше!");
+      } else if (n < +numForUser) {
+        alert("Меньше!");
+      } else if (n === +numForUser) {
+        i = makeCounter();
+        alert("Правильно!!!");
+        break;
       }
-      if (j === 10) {alert("Вы не уложились в 10 попыток. Было загаданно : " + n + ".")};
-      // i = 0;
-      j = 1;
-    };
-  }
+    }
+    if (j === 10) {
+      alert("Вы не уложились в 10 попыток. Было загаданно : " + n + ".");
+    }
+  };
 
   function makeCounter() {
     let count = 1;
@@ -57,7 +49,6 @@
       return count++;
     };
   }
-  window.start = start();
 
   //Дополнительные параметры для игры
   function getNumMax(text, byDefault = 0) {
