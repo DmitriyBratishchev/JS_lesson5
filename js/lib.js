@@ -9,42 +9,45 @@
     let max = getNumMax(textForUser, maxNumDefault);
     let numTrue = Math.floor(Math.random() * (max + 1));
     console.log("загаданное число: " + numTrue);
-
-    return numTrue;
+    return function () {
+      return numTrue;
+    }
   }
 
   window.start = function start() {
-    let j = 0;
+    // let j = 0;
     let n = numTrue();
-    let i = makeCounter();
+    let i = makeCounter(0);
+    let k = makeCounter(1);
 
-    while (j < 10) {
-      j = i();
-      console.log(j);
+    while (i() < 10) {
+      // j = i();
+      // console.log(k());
 
       let numForUser = getNum_or_null(
-        "Попытка номер " + j + ". Введите число:", ""
-        );
+        "Попытка номер " + k() + ". Введите число:",
+        ""
+      );
       if (numForUser === null) {
-        alert("Было загаданно : " + n + ".");
+        alert("Было загаданно : " + n() + ".");
         break;
-      } else if (n > +numForUser) {
+      } else if (n() > +numForUser) {
         alert("Больше!");
-      } else if (n < +numForUser) {
+      } else if (n() < +numForUser) {
         alert("Меньше!");
-      } else if (n === +numForUser) {
+      } else if (n() === +numForUser) {
         i = makeCounter();
         alert("Правильно!!!");
         break;
       }
     }
-    if (j === 10) {
-      alert("Вы не уложились в 10 попыток. Было загаданно : " + n + ".");
+    if (i() >= 10) {
+      alert("Вы не уложились в 10 попыток. Было загаданно : " + n() + ".");
     }
   };
 
-  function makeCounter() {
-    let count = 1;
+  function makeCounter(j) {
+    let count = j;
     return function () {
       return count++;
     };
